@@ -6,10 +6,10 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class GameArea : ScriptableObject
     {
         [SerializeField]
-        private readonly List<Obstacle> obstacles;
+        private  List<Obstacle> obstacles;
         [SerializeField]
-        private readonly List<CarPathPair> carPathPairs;
-        private readonly int activeCarPathIndex;
+        private  List<CarPathPair> carPathPairs;
+        private  int activeCarPathIndex;
 
     }
 }

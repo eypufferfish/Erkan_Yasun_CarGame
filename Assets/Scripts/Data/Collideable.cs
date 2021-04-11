@@ -5,6 +5,6 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class Collideable : ScriptableObject
     {
         [SerializeField]
-        private readonly int damagePoints;
+        private int damagePoints;
     }
 }

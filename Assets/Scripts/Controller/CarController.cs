@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public class CarController : IEventListener<UserInputEvent>, IEventListener<GameStatusEvent>
+    public class CarController : MonoBehaviour, IEventListener<UserInputEvent>, IEventListener<GameStatusEvent>
     {
 
         private int lastResetFrameCount = 0;
@@ -15,7 +15,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         [SerializeField]
         private readonly bool isActiveCar;
 
-        void IEventListener<UserInputEvent>.HandleEvent(UserInputEvent aEvent)
+        public void HandleEvent(UserInputEvent aEvent)
         {
             if (isActiveCar)
             {
@@ -23,7 +23,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
         }
 
-        void IEventListener<GameStatusEvent>.HandleEvent(GameStatusEvent aEvent)
+        public void HandleEvent(GameStatusEvent aEvent)
         {
             if (aEvent is Reset)
             {

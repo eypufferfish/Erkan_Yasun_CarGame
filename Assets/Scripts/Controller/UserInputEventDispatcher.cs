@@ -9,17 +9,17 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         [SerializeField]
         private readonly List<IEventListener<UserInputEvent>> listeners = new List<IEventListener<UserInputEvent>>();
 
-        void IEventDispatcher<UserInputEvent>.RegisterListener(IEventListener<UserInputEvent> aListener)
+        public void  RegisterListener(IEventListener<UserInputEvent> aListener)
         {
             listeners.Add(aListener);
         }
 
-        void IEventDispatcher<UserInputEvent>.UnRegisterListener(IEventListener<UserInputEvent> aListener)
+        public void UnRegisterListener(IEventListener<UserInputEvent> aListener)
         {
             listeners.Add(aListener);
         }
 
-        void IEventDispatcher<UserInputEvent>.DispatchEvent(UserInputEvent aEvent)
+        public void DispatchEvent(UserInputEvent aEvent)
         {
             foreach (IEventListener<UserInputEvent> listener in listeners)
             {

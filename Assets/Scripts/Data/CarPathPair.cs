@@ -6,9 +6,9 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class CarPathPair : ScriptableObject
     {
         [SerializeField]
-        private readonly Car car;
+        private Car car;
         [SerializeField]
-        private readonly Path path;
+        private Path path;
 
         public Path Path => path;
     }

@@ -5,8 +5,8 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class HealthInfo : ScriptableObject
     {
         [SerializeField]
-        private readonly int initialHealth;
+        private int initialHealth;
         [SerializeField]
-        private readonly int currentHealth;
+        private int currentHealth;
     }
 }

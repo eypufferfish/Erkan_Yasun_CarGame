@@ -11,10 +11,10 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private int lastResetFrameCount = 0;
         [SerializeField]
-        private readonly CarPathPair carPathPair;
-        private readonly IEventListener<UserInputEvent> carController;
+        private CarPathPair carPathPair;
+        private IEventListener<UserInputEvent> carController;
 
-        void IEventListener<GameStatusEvent>.HandleEvent(GameStatusEvent aEvent)
+        public void HandleEvent(GameStatusEvent aEvent)
         {
             if (aEvent is Reset)
             {

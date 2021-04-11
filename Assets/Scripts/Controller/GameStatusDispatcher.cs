@@ -7,14 +7,14 @@ namespace Mobge.CarGame.ErkanYasun.Controller
     public class GameStatusDispatcher : MonoBehaviour, IEventDispatcher<GameStatusEvent>
     {
         [SerializeField]
-        private readonly List<IEventListener<GameStatusEvent>> listeners = new List<IEventListener<GameStatusEvent>>();
+        private List<IEventListener<GameStatusEvent>> listeners = new List<IEventListener<GameStatusEvent>>();
 
-        void IEventDispatcher<GameStatusEvent>.RegisterListener(IEventListener<GameStatusEvent> aListener)
+        public void IEventDispatcher<GameStatusEvent>.RegisterListener(IEventListener<GameStatusEvent> aListener)
         {
             listeners.Add(aListener);
         }
 
-        void IEventDispatcher<GameStatusEvent>.UnRegisterListener(IEventListener<GameStatusEvent> aListener)
+        public void IEventDispatcher<GameStatusEvent>.UnRegisterListener(IEventListener<GameStatusEvent> aListener)
         {
             listeners.Add(aListener);
         }

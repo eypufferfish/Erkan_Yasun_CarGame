@@ -5,11 +5,11 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class Level : ScriptableObject
     {
         [SerializeField]
-        private readonly string levelName;
+        private string levelName;
         [SerializeField]
-        private readonly string shortDescription;
+        private  string shortDescription;
         [SerializeField]
-        private readonly GameArea gameArea;
+        private  GameArea gameArea;
 
     }
 }

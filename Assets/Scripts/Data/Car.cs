@@ -6,8 +6,8 @@ namespace Mobge.CarGame.ErkanYasun.Data
     public class Car : Collideable
     {
         [SerializeField]
-        private readonly HealthInfo healthInfo;
+        private HealthInfo healthInfo;
         [SerializeField]
-        private readonly int speed;
+        private int speed;
     }
 }
