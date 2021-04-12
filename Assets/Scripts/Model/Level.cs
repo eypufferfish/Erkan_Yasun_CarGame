@@ -14,5 +14,6 @@ namespace Mobge.CarGame.ErkanYasun.Model
         [SerializeField]
         private GameArea gameArea;
 
+        public GameArea GameArea => gameArea;
     }
 }

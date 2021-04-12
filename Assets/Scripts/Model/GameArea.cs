@@ -11,5 +11,6 @@ namespace Mobge.CarGame.ErkanYasun.Model
         private List<CarPathPair> carPathPairs;
         private int activeCarPathIndex;
 
+        public List<CarPathPair> CarPathPairs => carPathPairs;
     }
 }

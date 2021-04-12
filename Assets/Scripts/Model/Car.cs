@@ -11,5 +11,7 @@ namespace Mobge.CarGame.ErkanYasun.Model
         private int speed;
         [SerializeField]
         private Sprite sprite;
+
+        public Sprite Sprite => sprite;
     }
 }
