@@ -166,6 +166,7 @@ MonoBehaviour:
   carPrefab: {fileID: 4316864355612128, guid: 7647dab7c25d80b4e925372dfcd8ec47, type: 3}
   startPrefab: {fileID: 6967917238120212220, guid: fb079bb82cf7dd448a0e3b36243adf84, type: 3}
   finishPreFab: {fileID: 6160753222205945434, guid: 1023914bb67be8846afe4fd68ca0143e, type: 3}
+  obstaclePreFab: {fileID: 618051994272704966, guid: 61074dddb674fc6459948dd4daee2a34, type: 3}
   levelData: {fileID: 11400000, guid: 1d26724a9d23e0149838d0cdacab4374, type: 2}
 --- !u!20 &519420031
 Camera:

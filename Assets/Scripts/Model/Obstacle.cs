@@ -7,5 +7,7 @@ namespace Mobge.CarGame.ErkanYasun.Model
         [SerializeField]
         private Vector2 size;
 
+        public Vector2 Size => size;
+
     }
 }

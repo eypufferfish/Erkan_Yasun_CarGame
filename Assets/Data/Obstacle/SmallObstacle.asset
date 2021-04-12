@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: SmallObstacle
   m_EditorClassIdentifier: 
   damagePoints: 100
-  size: {x: 10, y: 10}
-  sprite: {fileID: 0}
+  size: {x: 0.5, y: 0.25}

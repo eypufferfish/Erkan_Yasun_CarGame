@@ -16,14 +16,9 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private bool isActiveCar;
 
 
-        private void Start()
-        {
-        }
-
         public void SetCarPathPair(CarPathPair aCarPathPair)
         {
             carPathPair = aCarPathPair;
-            gameObject.GetComponent<Rigidbody2D>().velocity = transform.up * carPathPair.Car.Speed;
         }
 
 
@@ -46,12 +41,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void TurnRight()
         {
-            transform.Rotate(0.0f, 90.0f, 0.0f);
+            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed, Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(0.0f, -90.0f, 0.0f);
+            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed, Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
@@ -61,6 +56,11 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                 lastResetFrameCount = 0;
                 carPathPair.Path.UserInputPerFrames.Clear();
             }
+        }
+
+        private void Update()
+        {
+            transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
         }
 
 

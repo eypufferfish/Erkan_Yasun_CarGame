@@ -12,6 +12,8 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private Transform startPrefab;
         [SerializeField]
         private Transform finishPreFab;
+        [SerializeField]
+        private Transform obstaclePreFab;
 
         [SerializeField]
         private Level levelData;
@@ -41,6 +43,15 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
                 }
 
+                SerializableDictionary<Vector2, Obstacle> obstacles = gameArea.Obstacles;
+                if (obstacles != null)
+                {
+                    foreach (KeyValuePair<Vector2, Obstacle> obstaclePair in obstacles)
+                    {
+                        InstantiateObstacle(obstaclePair.Key, obstaclePair.Value);
+                    }
+                }
+
             }
 
         }
@@ -49,6 +60,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private Transform InstantiateStart(Vector2 aEntrance)
         {
             return Instantiate(startPrefab, aEntrance, Quaternion.Euler(0f, 0f, 0));
+        }
+
+        private Transform InstantiateObstacle(Vector2 aPosition, Obstacle aObstacle)
+        {
+            obstaclePreFab.localScale = aObstacle.Size;
+            return Instantiate(obstaclePreFab, aPosition, Quaternion.Euler(0f, 0f, 0));
         }
 
         private Transform InstantiateFinish(Vector2 aEntrance)
