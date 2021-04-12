@@ -1,6 +1,6 @@
-using Mobge.CarGame.ErkanYasun.Data;
-using Mobge.CarGame.ErkanYasun.Data.Event.GameStatus;
-using Mobge.CarGame.ErkanYasun.Data.Event.UserInput;
+using Mobge.CarGame.ErkanYasun.Model;
+using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
+using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using UnityEngine;
 
 
@@ -19,7 +19,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         {
             if (isActiveCar)
             {
-                carPathPair.Path.UserInputPerFrames.Add(Time.frameCount - lastResetFrameCount, aEvent);
+                carPathPair.Path.UserInputPerFrames.Add(lastResetFrameCount, aEvent);
             }
         }
 
@@ -27,8 +27,13 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         {
             if (aEvent is Reset)
             {
-                lastResetFrameCount = Time.frameCount;
+                lastResetFrameCount = 0;
+                carPathPair.Path.UserInputPerFrames.Clear();
             }
         }
+
+
+
+
     }
 }

@@ -1,4 +1,4 @@
-using Mobge.CarGame.ErkanYasun.Data.Event.UserInput;
+using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         [SerializeField]
         private readonly List<IEventListener<UserInputEvent>> listeners = new List<IEventListener<UserInputEvent>>();
 
-        public void  RegisterListener(IEventListener<UserInputEvent> aListener)
+        public void RegisterListener(IEventListener<UserInputEvent> aListener)
         {
             listeners.Add(aListener);
         }

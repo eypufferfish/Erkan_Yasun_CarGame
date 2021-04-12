@@ -1,4 +1,4 @@
-using Mobge.CarGame.ErkanYasun.Data.Event.GameStatus;
+using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +9,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         [SerializeField]
         private List<IEventListener<GameStatusEvent>> listeners = new List<IEventListener<GameStatusEvent>>();
 
-        public void IEventDispatcher<GameStatusEvent>.RegisterListener(IEventListener<GameStatusEvent> aListener)
+        public void RegisterListener(IEventListener<GameStatusEvent> aListener)
         {
             listeners.Add(aListener);
         }
 
-        public void IEventDispatcher<GameStatusEvent>.UnRegisterListener(IEventListener<GameStatusEvent> aListener)
+        public void UnRegisterListener(IEventListener<GameStatusEvent> aListener)
         {
             listeners.Add(aListener);
         }

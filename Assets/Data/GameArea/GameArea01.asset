@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8aa16772b13d448a750901b6f3a36d, type: 3}
+  m_Name: GameArea01
+  m_EditorClassIdentifier: 
+  obstacles:
+    m_keys:
+    - {x: 10, y: 10}
+    - {x: 50, y: 50}
+    m_values:
+    - {fileID: 11400000, guid: a65ae37ed75f89e4f8d55024a79fb840, type: 2}
+    - {fileID: 11400000, guid: a65ae37ed75f89e4f8d55024a79fb840, type: 2}
+  carPathPairs:
+  - {fileID: 11400000, guid: 7adce213783b60545a7c1da229892b49, type: 2}
+  - {fileID: 11400000, guid: 4a7ec3ec308bd5843ad9a792fbf797ba, type: 2}

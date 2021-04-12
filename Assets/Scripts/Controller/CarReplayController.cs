@@ -1,6 +1,6 @@
-using Mobge.CarGame.ErkanYasun.Data;
-using Mobge.CarGame.ErkanYasun.Data.Event.GameStatus;
-using Mobge.CarGame.ErkanYasun.Data.Event.UserInput;
+using Mobge.CarGame.ErkanYasun.Model;
+using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
+using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using UnityEngine;
 
 
