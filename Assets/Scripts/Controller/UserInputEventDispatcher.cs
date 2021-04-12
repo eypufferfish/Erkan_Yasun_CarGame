@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public class UserInputEventDispatcher : MonoBehaviour, IEventDispatcher<UserInputEvent>
+    public class UserInputEventDispatcher : ScriptableObject, IEventDispatcher<UserInputEvent>
     {
         [SerializeField]
         private readonly List<IEventListener<UserInputEvent>> listeners = new List<IEventListener<UserInputEvent>>();

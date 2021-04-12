@@ -1,5 +1,4 @@
 using Mobge.CarGame.ErkanYasun.Model;
-using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {

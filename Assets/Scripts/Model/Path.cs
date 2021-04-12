@@ -16,5 +16,6 @@ namespace Mobge.CarGame.ErkanYasun.Model
         public SerializableDictionary<int, UserInputEvent> UserInputPerFrames => userInputPerFrames;
 
         public Vector2 Entrance => entrance;
+        public Vector2 Target => target;
     }
 }
