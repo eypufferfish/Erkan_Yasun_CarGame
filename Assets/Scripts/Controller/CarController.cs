@@ -97,6 +97,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
+                    isPathCompleted = false;
                     break;
 
                 case ResetPart _:
@@ -107,7 +108,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     {
                         carPathPair.Path.EventPerFrames.Clear();
                     }
-
+                    isPathCompleted = false;
                     break;
 
                 case null:
