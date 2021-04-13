@@ -62,7 +62,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void HandleEvent(GameStatusEvent aEvent)
         {
-            if (aEvent is Reset)
+            if (aEvent is ResetPart)
             {
                 frameOffset = 0;
                 carPathPair.Path.UserInputPerFrames.Clear();
