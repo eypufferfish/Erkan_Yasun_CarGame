@@ -7,8 +7,10 @@ namespace Mobge.CarGame.ErkanYasun.Model
     {
         [SerializeField]
         private HealthInfo healthInfo;
+
         [SerializeField]
         private int speed;
+
         [SerializeField]
         private Sprite sprite;
 

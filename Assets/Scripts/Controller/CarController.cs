@@ -1,21 +1,24 @@
+using System;
 using Mobge.CarGame.ErkanYasun.Model;
 using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using UnityEngine;
 
-
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
     public class CarController : MonoBehaviour, ICarController
     {
-        private const string FINISH_TAG = "Finish";
-        private const string CAR_TAG = "Car";
-        private const string OBSTACLE_TAG = "Obstacle";
-        private int frameOffset = 0;
+        private const string FinishTag = "Finish";
+        private const string CarTag = "Car";
+        private const string ObstacleTag = "Obstacle";
+        private int frameOffset;
+
         [SerializeField]
         private CarPathPair carPathPair;
+
         [SerializeField]
-        private bool isReplayMode = false;
+        private bool isReplayMode;
+
         private GameStatusEvent currentGameStatus;
 
         [SerializeField]
@@ -31,31 +34,27 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             gameStatusController = aGameStatusController;
         }
 
-
         public void HandleEvent(UserInputEvent aEvent)
         {
-            if (!isReplayMode)
-            {
-                Turn(aEvent);
-                RecordUserInput(aEvent);
-            }
-
+            if (isReplayMode) return;
+            Turn(aEvent);
+            RecordUserInput(aEvent);
         }
 
         private void Turn(UserInputEvent aEvent)
         {
             switch (aEvent)
             {
-                case TurnLeft turnLeft:
+                case TurnLeft _:
                     TurnLeft();
                     break;
-                case TurnRight turnRight:
+
+                case TurnRight _:
                     TurnRight();
                     break;
-                default:
-                    break;
+
                 case null:
-                    throw new System.ArgumentNullException(nameof(aEvent));
+                    throw new ArgumentNullException(nameof(aEvent));
             }
         }
 
@@ -77,17 +76,18 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         public void HandleEvent(GameStatusEvent aEvent)
         {
             currentGameStatus = aEvent;
-            Debug.Log(gameObject.name+" Handle Game Status Event:" + aEvent);
+            Debug.Log(gameObject.name + " Handle Game Status Event:" + aEvent);
             switch (aEvent)
             {
-                case StartLevel startLevel:
+                case StartLevel _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
                     carPathPair.Path.UserInputPerFrames.Clear();
 
                     break;
-                case StartNextPart startNextPart:
+
+                case StartNextPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
@@ -96,7 +96,8 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                         isReplayMode = true;
                     }
                     break;
-                case ResetPart resetPart:
+
+                case ResetPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
@@ -106,19 +107,16 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     }
 
                     break;
-                default:
-                    break;
+
                 case null:
-                    throw new System.ArgumentNullException(nameof(aEvent));
+                    throw new ArgumentNullException(nameof(aEvent));
             }
         }
 
         private void FixedUpdate()
         {
-            Debug.Log("FixedUpdate:"+currentGameStatus);
             if (!(currentGameStatus == null || currentGameStatus is FinishPart || currentGameStatus is FinishLevel))
             {
-                Debug.Log("FixedUpdate ----->:" + currentGameStatus);
                 frameOffset++;
                 transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
 
@@ -143,19 +141,26 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             return isReplayMode;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
-
-            if (!isReplayMode && gameStatusController != null)
+            switch (isReplayMode)
             {
-                if (other.gameObject.tag == FINISH_TAG)
-                {
-                    gameStatusController.FinishPart();
-                }
-                else if (other.gameObject.tag == CAR_TAG || other.gameObject.tag == OBSTACLE_TAG)
-                {
-                    gameStatusController.ResetPart();
-                }
+                case false when gameStatusController != null:
+                    {
+                        switch (other.gameObject.tag)
+                        {
+                            case FinishTag:
+                                gameStatusController.FinishPart();
+                                break;
+
+                            case CarTag:
+                            case ObstacleTag:
+                                gameStatusController.ResetPart();
+                                break;
+                        }
+
+                        break;
+                    }
             }
         }
     }

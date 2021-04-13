@@ -1,6 +1,5 @@
-using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
-using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using System.Collections.Concurrent;
+using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
@@ -9,8 +8,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
     {
         [SerializeField]
         private readonly ConcurrentBag<IEventListener<UserInputEvent>> listeners = new ConcurrentBag<IEventListener<UserInputEvent>>();
-
-        
 
         public void RegisterListener(IEventListener<UserInputEvent> aListener)
         {
@@ -24,7 +21,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void DispatchEvent(UserInputEvent aEvent)
         {
-
             foreach (IEventListener<UserInputEvent> listener in listeners)
             {
                 listener.HandleEvent(aEvent);

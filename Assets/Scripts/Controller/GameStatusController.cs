@@ -1,7 +1,6 @@
 using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using UnityEngine;
 
-
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
     public class GameStatusController : ScriptableObject, IGameStatusController
@@ -14,15 +13,14 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public GameStatusDispatcher GameStatusDispatcher { get; set; }
 
-        private void Awake()
+        public void Awake()
         {
-            startLevel = ScriptableObject.CreateInstance<StartLevel>();
-            finishLevel = ScriptableObject.CreateInstance<FinishLevel>();
-            startNextPart = ScriptableObject.CreateInstance<StartNextPart>();
-            finishPart = ScriptableObject.CreateInstance<FinishPart>();
-            resetPart = ScriptableObject.CreateInstance<ResetPart>();
-            GameStatusDispatcher = ScriptableObject.CreateInstance<GameStatusDispatcher>();
-
+            startLevel = CreateInstance<StartLevel>();
+            finishLevel = CreateInstance<FinishLevel>();
+            startNextPart = CreateInstance<StartNextPart>();
+            finishPart = CreateInstance<FinishPart>();
+            resetPart = CreateInstance<ResetPart>();
+            GameStatusDispatcher = CreateInstance<GameStatusDispatcher>();
         }
 
         public void StartLevel()
@@ -49,6 +47,5 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         {
             GameStatusDispatcher.DispatchEvent(resetPart);
         }
-
     }
 }

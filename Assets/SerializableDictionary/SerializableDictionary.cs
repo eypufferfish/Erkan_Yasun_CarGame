@@ -10,9 +10,17 @@ public abstract class SerializableDictionaryBase
 
     protected class Dictionary<TKey, TValue> : System.Collections.Generic.Dictionary<TKey, TValue>
     {
-        public Dictionary() { }
-        public Dictionary(IDictionary<TKey, TValue> dict) : base(dict) { }
-        public Dictionary(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public Dictionary()
+        {
+        }
+
+        public Dictionary(IDictionary<TKey, TValue> dict) : base(dict)
+        {
+        }
+
+        public Dictionary(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }
 
@@ -20,8 +28,10 @@ public abstract class SerializableDictionaryBase
 public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : SerializableDictionaryBase, IDictionary<TKey, TValue>, IDictionary, ISerializationCallbackReceiver, IDeserializationCallback, ISerializable
 {
     private readonly Dictionary<TKey, TValue> m_dict;
+
     [SerializeField]
     private TKey[] m_keys;
+
     [SerializeField]
     private TValueStorage[] m_values;
 
@@ -36,6 +46,7 @@ public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : 
     }
 
     protected abstract void SetValue(TValueStorage[] storage, int i, TValue value);
+
     protected abstract TValue GetValue(TValueStorage[] storage, int i);
 
     public void CopyFrom(IDictionary<TKey, TValue> dict)
@@ -146,7 +157,7 @@ public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : 
         return ((IDictionary<TKey, TValue>)m_dict).GetEnumerator();
     }
 
-    #endregion
+    #endregion IDictionary<TKey, TValue>
 
     #region IDictionary
 
@@ -187,7 +198,7 @@ public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : 
         ((IDictionary)m_dict).CopyTo(array, index);
     }
 
-    #endregion
+    #endregion IDictionary
 
     #region IDeserializationCallback
 
@@ -196,7 +207,7 @@ public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : 
         ((IDeserializationCallback)m_dict).OnDeserialization(sender);
     }
 
-    #endregion
+    #endregion IDeserializationCallback
 
     #region ISerializable
 
@@ -210,7 +221,7 @@ public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : 
         ((ISerializable)m_dict).GetObjectData(info, context);
     }
 
-    #endregion
+    #endregion ISerializable
 }
 
 public static class SerializableDictionary
@@ -224,9 +235,17 @@ public static class SerializableDictionary
 [Serializable]
 public class SerializableDictionary<TKey, TValue> : SerializableDictionaryBase<TKey, TValue, TValue>
 {
-    public SerializableDictionary() { }
-    public SerializableDictionary(IDictionary<TKey, TValue> dict) : base(dict) { }
-    protected SerializableDictionary(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    public SerializableDictionary()
+    {
+    }
+
+    public SerializableDictionary(IDictionary<TKey, TValue> dict) : base(dict)
+    {
+    }
+
+    protected SerializableDictionary(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
 
     protected override TValue GetValue(TValue[] storage, int i)
     {
@@ -242,9 +261,17 @@ public class SerializableDictionary<TKey, TValue> : SerializableDictionaryBase<T
 [Serializable]
 public class SerializableDictionary<TKey, TValue, TValueStorage> : SerializableDictionaryBase<TKey, TValue, TValueStorage> where TValueStorage : SerializableDictionary.Storage<TValue>, new()
 {
-    public SerializableDictionary() { }
-    public SerializableDictionary(IDictionary<TKey, TValue> dict) : base(dict) { }
-    protected SerializableDictionary(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    public SerializableDictionary()
+    {
+    }
+
+    public SerializableDictionary(IDictionary<TKey, TValue> dict) : base(dict)
+    {
+    }
+
+    protected SerializableDictionary(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
 
     protected override TValue GetValue(TValueStorage[] storage, int i)
     {

@@ -5,7 +5,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 {
     public interface ICarController : IEventListener<UserInputEvent>, IEventListener<GameStatusEvent>
     {
-
         void SetReplayMode(bool aReplayMode);
 
         bool IsReplayMode();

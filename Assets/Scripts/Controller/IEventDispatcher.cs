@@ -7,6 +7,5 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         void UnRegisterListener(IEventListener<T> aListener);
 
         void DispatchEvent(T aEvent);
-
     }
 }

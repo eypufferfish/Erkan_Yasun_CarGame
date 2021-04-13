@@ -2,7 +2,6 @@ using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using UnityEngine;
 
-
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
     public class UserInputController : MonoBehaviour, IEventListener<GameStatusEvent>
@@ -14,16 +13,16 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public UserInputEventDispatcher UserInputEventDispatcher { get; set; }
 
-        private void Awake()
+        public void Awake()
         {
             UserInputEventDispatcher = ScriptableObject.CreateInstance<UserInputEventDispatcher>();
             turnLeft = ScriptableObject.CreateInstance<TurnLeft>();
             turnRight = ScriptableObject.CreateInstance<TurnRight>();
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
-            if (!(currentGameStatus == null ||  currentGameStatus is FinishLevel))
+            if (!(currentGameStatus == null || currentGameStatus is FinishLevel))
             {
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
@@ -31,16 +30,13 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                 }
                 else if (Input.GetKey(KeyCode.RightArrow))
                 {
-                   
                     UserInputEventDispatcher.DispatchEvent(turnRight);
                 }
-            } else if  (Input.GetKey(KeyCode.Space) && GameStatusController != null)
-             {
+            }
+            else if (Input.GetKey(KeyCode.Space) && GameStatusController != null)
+            {
                 GameStatusController.StartLevel();
-
-             }
-
-
+            }
         }
 
         public void HandleEvent(GameStatusEvent aEvent)

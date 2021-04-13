@@ -1,6 +1,6 @@
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public interface IEventListener<T>
+    public interface IEventListener<in T>
     {
         void HandleEvent(T aEvent);
     }

@@ -146,7 +146,6 @@ public class SerializableDictionaryPropertyDrawer : PropertyDrawer
                     GUI.Label(iconPosition, s_warningIconOther);
                 }
 
-
                 linePosition.y += lineHeight;
             }
 
@@ -196,7 +195,6 @@ public class SerializableDictionaryPropertyDrawer : PropertyDrawer
 
                 break;
             }
-
 
             foreach (EnumerationEntry entry2 in EnumerateEntries(keyArrayProperty, valueArrayProperty, i + 1))
             {
@@ -323,6 +321,7 @@ public class SerializableDictionaryPropertyDrawer : PropertyDrawer
             case SerializedPropertyType.Vector4:
             case SerializedPropertyType.Quaternion:
                 return true;
+
             default:
                 return false;
         }

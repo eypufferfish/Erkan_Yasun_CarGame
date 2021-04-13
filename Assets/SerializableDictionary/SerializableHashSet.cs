@@ -1,4 +1,5 @@
 ﻿#if NET_4_6 || NET_STANDARD_2_0
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,17 @@ public abstract class SerializableHashSetBase
 
     protected class HashSet<TValue> : System.Collections.Generic.HashSet<TValue>
     {
-        public HashSet() { }
-        public HashSet(ISet<TValue> set) : base(set) { }
-        public HashSet(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public HashSet()
+        {
+        }
+
+        public HashSet(ISet<TValue> set) : base(set)
+        {
+        }
+
+        public HashSet(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }
 
@@ -21,6 +30,7 @@ public abstract class SerializableHashSetBase
 public abstract class SerializableHashSet<T> : SerializableHashSetBase, ISet<T>, ISerializationCallbackReceiver, IDeserializationCallback, ISerializable
 {
     private HashSet<T> m_hashSet;
+
     [SerializeField]
     private T[] m_keys;
 
@@ -166,7 +176,7 @@ public abstract class SerializableHashSet<T> : SerializableHashSetBase, ISet<T>,
         return ((ISet<T>)m_hashSet).GetEnumerator();
     }
 
-    #endregion
+    #endregion ISet<TValue>
 
     #region IDeserializationCallback
 
@@ -175,7 +185,7 @@ public abstract class SerializableHashSet<T> : SerializableHashSetBase, ISet<T>,
         ((IDeserializationCallback)m_hashSet).OnDeserialization(sender);
     }
 
-    #endregion
+    #endregion IDeserializationCallback
 
     #region ISerializable
 
@@ -189,6 +199,7 @@ public abstract class SerializableHashSet<T> : SerializableHashSetBase, ISet<T>,
         ((ISerializable)m_hashSet).GetObjectData(info, context);
     }
 
-    #endregion
+    #endregion ISerializable
 }
+
 #endif

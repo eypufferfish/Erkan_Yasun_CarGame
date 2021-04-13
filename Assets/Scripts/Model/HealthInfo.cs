@@ -7,6 +7,7 @@ namespace Mobge.CarGame.ErkanYasun.Model
     {
         [SerializeField]
         private int initialHealth;
+
         [SerializeField]
         private int currentHealth;
     }

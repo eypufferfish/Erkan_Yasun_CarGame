@@ -4,7 +4,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 {
     public interface ILevelBuilder
     {
-        ILevelBuilder addObstacle(Obstacle aObstacle);
-
+        ILevelBuilder AddObstacle(Obstacle aObstacle);
     }
 }

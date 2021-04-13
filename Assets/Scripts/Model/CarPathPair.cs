@@ -7,11 +7,11 @@ namespace Mobge.CarGame.ErkanYasun.Model
     {
         [SerializeField]
         private Car car;
+
         [SerializeField]
         private Path path;
 
         public Car Car => car;
         public Path Path => path;
-
     }
 }

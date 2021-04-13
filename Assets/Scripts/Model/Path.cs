@@ -8,10 +8,12 @@ namespace Mobge.CarGame.ErkanYasun.Model
     {
         [SerializeField]
         private Vector2 entrance;
+
         [SerializeField]
         private Vector2 target;
+
         [SerializeField]
-        private SerializableDictionary<int, UserInputEvent> userInputPerFrames = new SerializableDictionary<int, UserInputEvent>();
+        private readonly SerializableDictionary<int, UserInputEvent> userInputPerFrames = new SerializableDictionary<int, UserInputEvent>();
 
         public SerializableDictionary<int, UserInputEvent> UserInputPerFrames => userInputPerFrames;
 
