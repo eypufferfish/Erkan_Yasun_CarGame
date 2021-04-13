@@ -84,10 +84,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
-                    if (!isReplayMode)
-                    {
-                        carPathPair.Path.UserInputPerFrames.Clear();
-                    }
+                    carPathPair.Path.UserInputPerFrames.Clear();
 
                     break;
                 case StartNextPart startNextPart:

@@ -1,5 +1,5 @@
 using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
@@ -7,7 +7,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
     public class GameStatusDispatcher : ScriptableObject, IEventDispatcher<GameStatusEvent>
     {
         [SerializeField]
-        private List<IEventListener<GameStatusEvent>> listeners = new List<IEventListener<GameStatusEvent>>();
+        private ConcurrentBag<IEventListener<GameStatusEvent>> listeners = new ConcurrentBag<IEventListener<GameStatusEvent>>();
 
         public void RegisterListener(IEventListener<GameStatusEvent> aListener)
         {

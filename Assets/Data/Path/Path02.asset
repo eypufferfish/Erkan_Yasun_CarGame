@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4394447e999a7143b767184558f5bfd, type: 3}
   m_Name: Path02
   m_EditorClassIdentifier: 
-  entrance: {x: 5, y: 5}
+  entrance: {x: -5, y: -5}
   target: {x: 90, y: 90}
   userInputPerFrames:
     m_keys: 

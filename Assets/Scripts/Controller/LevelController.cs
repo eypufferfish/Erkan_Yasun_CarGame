@@ -1,10 +1,11 @@
 using Mobge.CarGame.ErkanYasun.Model;
+using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public class LevelController : MonoBehaviour
+    public class LevelController : MonoBehaviour, IEventListener<GameStatusEvent>
     {
         [SerializeField]
         private Transform carPrefab;
@@ -20,15 +21,25 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public GameStatusController GameStatusController { get; set; }
 
+        private List<CarPathPair>.Enumerator carPathEnumerator;
+
+        private CarController currentActiveCarController;
+
+        private UserInputController userInputController;
+
+
+
         private void Awake()
         {
             GameStatusController = ScriptableObject.CreateInstance<GameStatusController>();
+            GameStatusController.GameStatusDispatcher.RegisterListener(this);
+            userInputController = gameObject.GetComponent(typeof(UserInputController)) as UserInputController;
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-            UserInputController userInputController = gameObject.GetComponent(typeof(UserInputController)) as UserInputController;
+
 
             if (levelData != null)
             {
@@ -36,20 +47,18 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                 List<CarPathPair> carPathPairs = gameArea.CarPathPairs;
                 if (carPathPairs != null)
                 {
-                    foreach (CarPathPair carPathPair in carPathPairs)
+
+                    carPathEnumerator = carPathPairs.GetEnumerator();
+                    if (carPathEnumerator.MoveNext())
                     {
+                        CarPathPair carPathPair = carPathEnumerator.Current;
                         Car car = carPathPair.Car;
                         Path path = carPathPair.Path;
-                        Transform carTransform = InstantiateCar(path.Entrance, car);
-                        CarController carController = carTransform.gameObject.GetComponent(typeof(CarController)) as CarController;
-                        carController.SetCarPathPair(carPathPair);
-                        carController.SetGameStatusController(GameStatusController);
-                        GameStatusController.GameStatusDispatcher.RegisterListener(carController);
-                        userInputController.UserInputEventDispatcher.RegisterListener(carController);
-                        InstantiateStart(path.Entrance);
-                        InstantiateFinish(path.Target);
-                    }
+                        startPrefab = InstantiateStart(path.Entrance);
+                        finishPreFab = InstantiateFinish(path.Target);
 
+                        CreateCarPathComponents(carPathPair);
+                    }
                 }
 
                 SerializableDictionary<Vector2, Obstacle> obstacles = gameArea.Obstacles;
@@ -65,6 +74,21 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         }
 
+        private void CreateCarPathComponents(CarPathPair carPathPair)
+        {
+            Car car = carPathPair.Car;
+            Path path = carPathPair.Path;
+            path.UserInputPerFrames.Clear();
+            Transform carTransform = InstantiateCar(path.Entrance, car);
+            currentActiveCarController = carTransform.gameObject.GetComponent(typeof(CarController)) as CarController;
+            currentActiveCarController.SetReplayMode(false);
+            currentActiveCarController.SetCarPathPair(carPathPair);
+            currentActiveCarController.SetGameStatusController(GameStatusController);
+            startPrefab.position = path.Entrance;
+            finishPreFab.position = path.Target;
+            userInputController.UserInputEventDispatcher.RegisterListener(currentActiveCarController);
+            GameStatusController.GameStatusDispatcher.RegisterListener(currentActiveCarController);
+        }
 
         private Transform InstantiateStart(Vector2 aEntrance)
         {
@@ -94,6 +118,46 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private void Update()
         {
 
+        }
+
+        public void HandleEvent(GameStatusEvent aEvent)
+        {
+            Debug.Log("Level Controller Handle Game Status Event:" + aEvent);
+            switch (aEvent)
+            {
+                case StartLevel startLevel:
+                    StartLevel();
+                    break;
+                case StartNextPart startNextPart:
+                    if (carPathEnumerator.MoveNext())
+                    {
+                        CarPathPair carPathPair = carPathEnumerator.Current;
+                        CreateCarPathComponents(carPathPair);
+                    }
+                    break;
+                case ResetPart resetPart:
+
+                    break;
+                default:
+                    break;
+                case null:
+                    throw new System.ArgumentNullException(nameof(aEvent));
+            }
+        }
+
+        private void StartLevel()
+        {
+            if (levelData != null)
+            {
+                GameArea gameArea = levelData.GameArea;
+                List<CarPathPair> carPathPairs = gameArea.CarPathPairs;
+                carPathEnumerator = carPathPairs.GetEnumerator();
+                if (carPathEnumerator.MoveNext())
+                {
+
+                }
+
+            }
         }
     }
 }

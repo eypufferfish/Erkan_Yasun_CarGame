@@ -18,7 +18,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             turnRight = ScriptableObject.CreateInstance<TurnRight>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -28,7 +28,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 UserInputEventDispatcher.DispatchEvent(turnRight);
-
             }
 
         }

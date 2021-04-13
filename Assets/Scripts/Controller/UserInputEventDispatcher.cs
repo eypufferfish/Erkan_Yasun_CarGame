@@ -1,5 +1,5 @@
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
@@ -7,7 +7,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
     public class UserInputEventDispatcher : ScriptableObject, IEventDispatcher<UserInputEvent>
     {
         [SerializeField]
-        private readonly List<IEventListener<UserInputEvent>> listeners = new List<IEventListener<UserInputEvent>>();
+        private readonly ConcurrentBag<IEventListener<UserInputEvent>> listeners = new ConcurrentBag<IEventListener<UserInputEvent>>();
 
         public void RegisterListener(IEventListener<UserInputEvent> aListener)
         {
