@@ -18,6 +18,13 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         [SerializeField]
         private Level levelData;
 
+        public GameStatusController GameStatusController { get; set; }
+
+        private void Awake()
+        {
+            GameStatusController = ScriptableObject.CreateInstance<GameStatusController>();
+        }
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -36,6 +43,8 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                         Transform carTransform = InstantiateCar(path.Entrance, car);
                         CarController carController = carTransform.gameObject.GetComponent(typeof(CarController)) as CarController;
                         carController.SetCarPathPair(carPathPair);
+                        carController.SetGameStatusController(GameStatusController);
+                        GameStatusController.GameStatusDispatcher.RegisterListener(carController);
                         userInputController.UserInputEventDispatcher.RegisterListener(carController);
                         InstantiateStart(path.Entrance);
                         InstantiateFinish(path.Target);

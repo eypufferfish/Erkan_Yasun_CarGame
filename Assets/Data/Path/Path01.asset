@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Path01
   m_EditorClassIdentifier: 
   entrance: {x: 0, y: 0}
-  target: {x: 100, y: 100}
+  target: {x: 2, y: 4}
   userInputPerFrames:
     m_keys: 
     m_values: []
