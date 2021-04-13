@@ -1,5 +1,5 @@
-using System.Collections.Concurrent;
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
+using System.Collections.Concurrent;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller

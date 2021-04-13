@@ -7,6 +7,7 @@ namespace Mobge.CarGame.ErkanYasun.Model
     public class GameArea : ScriptableObject
     {
         [SerializeField]
+        [Header("x Ekseni [-8..8], y Ekseni [-4..4]")]
         private SerializableDictionary<Vector2, Obstacle> obstacles = new SerializableDictionary<Vector2, Obstacle>();
 
         [SerializeField]

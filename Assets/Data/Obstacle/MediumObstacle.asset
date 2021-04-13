@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MediumObstacle
   m_EditorClassIdentifier: 
   damagePoints: 100
-  size: {x: 2, y: 1}
+  size: {x: 0.5, y: 0.25}

@@ -7,9 +7,11 @@ namespace Mobge.CarGame.ErkanYasun.Model
     public class Path : ScriptableObject
     {
         [SerializeField]
+        [Header("x Ekseni [-8..8], y Ekseni [-4..4]")]
         private Vector2 entrance;
 
         [SerializeField]
+        [Header("x Ekseni [-8..8], y Ekseni [-4..4]")]
         private Vector2 target;
 
         [SerializeField]

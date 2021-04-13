@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SmallObstacle
   m_EditorClassIdentifier: 
   damagePoints: 100
-  size: {x: 0.5, y: 0.25}
+  size: {x: 0.2, y: 0.2}

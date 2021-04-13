@@ -7,8 +7,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
     public class UserInputController : MonoBehaviour, IEventListener<GameStatusEvent>
     {
         private GameStatusEvent currentGameStatus;
-        private UserInputEvent turnLeft;
-        private UserInputEvent turnRight;
         public GameStatusController GameStatusController { get; set; }
 
         public UserInputEventDispatcher UserInputEventDispatcher { get; set; }
@@ -16,26 +14,21 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         public void Awake()
         {
             UserInputEventDispatcher = ScriptableObject.CreateInstance<UserInputEventDispatcher>();
-            turnLeft = ScriptableObject.CreateInstance<TurnLeft>();
-            turnRight = ScriptableObject.CreateInstance<TurnRight>();
         }
 
-        public void FixedUpdate()
+        public void Update()
+        {
+            if ((currentGameStatus == null || currentGameStatus is FinishLevel) && Input.touchCount > 0)
+            {
+                GameStatusController.StartLevel();
+            }
+        }
+
+        public void Turn(UserInputEvent aUserInputEvent)
         {
             if (!(currentGameStatus == null || currentGameStatus is FinishLevel))
             {
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    UserInputEventDispatcher.DispatchEvent(turnLeft);
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    UserInputEventDispatcher.DispatchEvent(turnRight);
-                }
-            }
-            else if (Input.GetKey(KeyCode.Space) && GameStatusController != null)
-            {
-                GameStatusController.StartLevel();
+                UserInputEventDispatcher.DispatchEvent(aUserInputEvent);
             }
         }
 

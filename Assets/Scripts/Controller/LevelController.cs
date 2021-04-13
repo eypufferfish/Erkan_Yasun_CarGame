@@ -37,15 +37,23 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             GameStatusController = ScriptableObject.CreateInstance<GameStatusController>();
             GameStatusController.GameStatusDispatcher.RegisterListener(this);
             userInputController = gameObject.GetComponent(typeof(UserInputController)) as UserInputController;
-            if (userInputController == null) return;
+            if (userInputController == null)
+            {
+                return;
+            }
+
             GameStatusController.GameStatusDispatcher.RegisterListener(userInputController);
             userInputController.GameStatusController = GameStatusController;
         }
 
         // Start is called before the first frame update
-        private void Start()
+        public void Start()
         {
-            if (levelData == null) return;
+            if (levelData == null)
+            {
+                return;
+            }
+
             GameArea gameArea = levelData.GameArea;
             List<CarPathPair> carPathPairs = gameArea.CarPathPairs;
             if (carPathPairs != null)
@@ -64,8 +72,16 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                 }
             }
 
-            SerializableDictionary<Vector2, Obstacle> obstacles = gameArea.Obstacles;
-            if (obstacles == null) return;
+            InstantiateObstacles(gameArea.Obstacles);
+        }
+
+        private void InstantiateObstacles(SerializableDictionary<Vector2, Obstacle> obstacles)
+        {
+            if (obstacles == null)
+            {
+                return;
+            }
+
             foreach (KeyValuePair<Vector2, Obstacle> obstaclePair in obstacles)
             {
                 InstantiateObstacle(obstaclePair.Key, obstaclePair.Value);

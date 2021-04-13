@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4394447e999a7143b767184558f5bfd, type: 3}
-  m_Name: Path03
+  m_Script: {fileID: 11500000, guid: 20bda9b5bbded744e9d7f7b409010dba, type: 3}
+  m_Name: TurnLeft
   m_EditorClassIdentifier: 
-  entrance: {x: 1, y: 1}
-  target: {x: 3, y: 3}

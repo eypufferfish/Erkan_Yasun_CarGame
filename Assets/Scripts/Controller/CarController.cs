@@ -1,7 +1,7 @@
-using System;
 using Mobge.CarGame.ErkanYasun.Model;
 using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
+using System;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
@@ -36,7 +36,11 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void HandleEvent(UserInputEvent aEvent)
         {
-            if (isReplayMode) return;
+            if (isReplayMode)
+            {
+                return;
+            }
+
             Turn(aEvent);
             RecordUserInput(aEvent);
         }
@@ -65,12 +69,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void TurnRight()
         {
-            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed, Space.World);
+            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed * 90, Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed, Space.World);
+            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed * 90, Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
@@ -113,7 +117,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
             if (!(currentGameStatus == null || currentGameStatus is FinishPart || currentGameStatus is FinishLevel))
             {

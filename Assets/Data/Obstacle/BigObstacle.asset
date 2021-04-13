@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BigObstacle
   m_EditorClassIdentifier: 
   damagePoints: 100
-  size: {x: 3, y: 1.5}
+  size: {x: 1, y: 0.5}
