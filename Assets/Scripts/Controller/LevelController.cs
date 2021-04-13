@@ -92,7 +92,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         {
             Car car = carPathPair.Car;
             Path path = carPathPair.Path;
-            path.UserInputPerFrames.Clear();
+            path.EventPerFrames.Clear();
             Transform carTransform = InstantiateCar(path.Entrance, car);
             currentActiveCarController = carTransform.gameObject.GetComponent(typeof(CarController)) as CarController;
             if (currentActiveCarController is { })

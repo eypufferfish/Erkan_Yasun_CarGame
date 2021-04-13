@@ -1,4 +1,5 @@
 using Mobge.CarGame.ErkanYasun.Model;
+using Mobge.CarGame.ErkanYasun.Model.Event;
 using Mobge.CarGame.ErkanYasun.Model.Event.GameStatus;
 using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
 using System;
@@ -22,6 +23,8 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private GameStatusEvent currentGameStatus;
 
+        private bool isPathCompleted;
+
         [SerializeField]
         private IGameStatusController gameStatusController;
 
@@ -43,7 +46,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
 
             Turn(aEvent);
-            RecordUserInput(aEvent);
+            RecordEvent(aEvent);
         }
 
         private void Turn(UserInputEvent aEvent)
@@ -63,19 +66,19 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
         }
 
-        private void RecordUserInput(UserInputEvent aEvent)
+        private void RecordEvent(BaseEvent aEvent)
         {
-            carPathPair.Path.UserInputPerFrames.Add(frameOffset, aEvent);
+            carPathPair.Path.EventPerFrames.Add(frameOffset, aEvent);
         }
 
         private void TurnRight()
         {
-            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed)* RotationCoefficient, Space.World);
+            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * RotationCoefficient, Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed)* RotationCoefficient, Space.World);
+            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * RotationCoefficient, Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
@@ -87,20 +90,22 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
-                    carPathPair.Path.UserInputPerFrames.Clear();
+                    carPathPair.Path.EventPerFrames.Clear();
                     break;
+
                 case StartNextPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
                     break;
+
                 case ResetPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
                     if (!isReplayMode)
                     {
-                        carPathPair.Path.UserInputPerFrames.Clear();
+                        carPathPair.Path.EventPerFrames.Clear();
                     }
 
                     break;
@@ -112,20 +117,27 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void FixedUpdate()
         {
-            if (!(currentGameStatus == null || currentGameStatus is FinishPart || currentGameStatus is FinishLevel))
-            {
-                frameOffset++;
-                transform.Translate(carPathPair.Car.Speed * Time.deltaTime, 0, 0);
+            if (isPathCompleted || currentGameStatus == null || currentGameStatus is FinishPart ||
+                currentGameStatus is FinishLevel) return;
+            frameOffset++;
+            transform.Translate(carPathPair.Car.Speed * Time.deltaTime, 0, 0);
 
-                if (isReplayMode)
+            if (isReplayMode)
+            {
+                carPathPair.Path.EventPerFrames.TryGetValue(frameOffset, out BaseEvent baseEvent);
+                if (baseEvent != null)
                 {
-                    carPathPair.Path.UserInputPerFrames.TryGetValue(frameOffset, out UserInputEvent userInputEvent);
-                    if (userInputEvent != null)
+                    switch (baseEvent)
                     {
-                        Turn(userInputEvent);
+                        case UserInputEvent @event:
+                            Turn(@event);
+                            break;
+
+                        case FinishPart _:
+                            isPathCompleted = true;
+                            break;
                     }
                 }
-              
             }
         }
 
@@ -148,6 +160,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                         switch (other.gameObject.tag)
                         {
                             case FinishTag:
+                                RecordEvent(ScriptableObject.CreateInstance<FinishPart>());
                                 gameStatusController.FinishPart();
                                 break;
 
@@ -156,7 +169,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                                 gameStatusController.ResetPart();
                                 break;
                         }
-
                         break;
                     }
             }

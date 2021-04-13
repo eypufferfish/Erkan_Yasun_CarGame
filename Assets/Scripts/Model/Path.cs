@@ -1,4 +1,4 @@
-﻿using Mobge.CarGame.ErkanYasun.Model.Event.UserInput;
+﻿using Mobge.CarGame.ErkanYasun.Model.Event;
 using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Model
@@ -15,9 +15,9 @@ namespace Mobge.CarGame.ErkanYasun.Model
         private Vector2 target;
 
         [SerializeField]
-        private readonly SerializableDictionary<int, UserInputEvent> userInputPerFrames = new SerializableDictionary<int, UserInputEvent>();
+        private readonly SerializableDictionary<int, BaseEvent> eventPerFrames = new SerializableDictionary<int, BaseEvent>();
 
-        public SerializableDictionary<int, UserInputEvent> UserInputPerFrames => userInputPerFrames;
+        public SerializableDictionary<int, BaseEvent> EventPerFrames => eventPerFrames;
 
         public Vector2 Entrance => entrance;
         public Vector2 Target => target;
