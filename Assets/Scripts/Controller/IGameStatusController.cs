@@ -6,6 +6,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         void StartNextPart();
 
+        void FinishPart();
         void ResetPart();
 
         void FinishLevel();

@@ -16,6 +16,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private CarPathPair carPathPair;
         [SerializeField]
         private bool isReplayMode = false;
+        private GameStatusEvent currentGameStatus;
 
         [SerializeField]
         private IGameStatusController gameStatusController;
@@ -33,8 +34,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void HandleEvent(UserInputEvent aEvent)
         {
-            Debug.Log("Handle User Event:" + aEvent);
-
             if (!isReplayMode)
             {
                 Turn(aEvent);
@@ -77,7 +76,8 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void HandleEvent(GameStatusEvent aEvent)
         {
-            Debug.Log("Handle Game Status Event:" + aEvent);
+            currentGameStatus = aEvent;
+            Debug.Log(gameObject.name+" Handle Game Status Event:" + aEvent);
             switch (aEvent)
             {
                 case StartLevel startLevel:
@@ -115,15 +115,20 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void FixedUpdate()
         {
-            frameOffset++;
-            transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
-
-            if (isReplayMode)
+            Debug.Log("FixedUpdate:"+currentGameStatus);
+            if (!(currentGameStatus == null || currentGameStatus is FinishPart || currentGameStatus is FinishLevel))
             {
-                carPathPair.Path.UserInputPerFrames.TryGetValue(frameOffset, out UserInputEvent userInputEvent);
-                if (userInputEvent != null)
+                Debug.Log("FixedUpdate ----->:" + currentGameStatus);
+                frameOffset++;
+                transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
+
+                if (isReplayMode)
                 {
-                    Turn(userInputEvent);
+                    carPathPair.Path.UserInputPerFrames.TryGetValue(frameOffset, out UserInputEvent userInputEvent);
+                    if (userInputEvent != null)
+                    {
+                        Turn(userInputEvent);
+                    }
                 }
             }
         }
@@ -143,10 +148,9 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
             if (!isReplayMode && gameStatusController != null)
             {
-                Debug.Log("OnTriggerEnter2D Tag:" + other.gameObject.tag);
                 if (other.gameObject.tag == FINISH_TAG)
                 {
-                    gameStatusController.StartNextPart();
+                    gameStatusController.FinishPart();
                 }
                 else if (other.gameObject.tag == CAR_TAG || other.gameObject.tag == OBSTACLE_TAG)
                 {

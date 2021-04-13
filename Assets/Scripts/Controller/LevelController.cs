@@ -26,14 +26,15 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private CarController currentActiveCarController;
 
         private UserInputController userInputController;
-
-
+        private GameStatusEvent currentGameStatus;
 
         private void Awake()
         {
             GameStatusController = ScriptableObject.CreateInstance<GameStatusController>();
             GameStatusController.GameStatusDispatcher.RegisterListener(this);
             userInputController = gameObject.GetComponent(typeof(UserInputController)) as UserInputController;
+            GameStatusController.GameStatusDispatcher.RegisterListener(userInputController);
+            userInputController.GameStatusController = GameStatusController;
         }
 
         // Start is called before the first frame update
@@ -88,6 +89,11 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             finishPreFab.position = path.Target;
             userInputController.UserInputEventDispatcher.RegisterListener(currentActiveCarController);
             GameStatusController.GameStatusDispatcher.RegisterListener(currentActiveCarController);
+            if (currentGameStatus != null)
+            {
+                currentActiveCarController.HandleEvent(currentGameStatus);
+            }
+            carTransform.gameObject.name = car.Sprite.name + "_"+Time.time;
         }
 
         private Transform InstantiateStart(Vector2 aEntrance)
@@ -114,29 +120,14 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             return Instantiate(carPrefab, aEntrance, Quaternion.Euler(0f, 0f, 90));
         }
 
-        // Update is called once per frame
-        private void Update()
-        {
-
-        }
-
         public void HandleEvent(GameStatusEvent aEvent)
         {
+            currentGameStatus = aEvent;
             Debug.Log("Level Controller Handle Game Status Event:" + aEvent);
             switch (aEvent)
             {
-                case StartLevel startLevel:
-                    StartLevel();
-                    break;
-                case StartNextPart startNextPart:
-                    if (carPathEnumerator.MoveNext())
-                    {
-                        CarPathPair carPathPair = carPathEnumerator.Current;
-                        CreateCarPathComponents(carPathPair);
-                    }
-                    break;
-                case ResetPart resetPart:
-
+                case FinishPart finishPart:
+                    StartNextPart();
                     break;
                 default:
                     break;
@@ -145,18 +136,19 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
         }
 
-        private void StartLevel()
+      
+
+        private void StartNextPart()
         {
-            if (levelData != null)
+            if (carPathEnumerator.MoveNext())
             {
-                GameArea gameArea = levelData.GameArea;
-                List<CarPathPair> carPathPairs = gameArea.CarPathPairs;
-                carPathEnumerator = carPathPairs.GetEnumerator();
-                if (carPathEnumerator.MoveNext())
-                {
-
-                }
-
+                CarPathPair carPathPair = carPathEnumerator.Current;
+                CreateCarPathComponents(carPathPair);
+                GameStatusController.StartNextPart();
+            }
+            else
+            {
+                GameStatusController.FinishLevel();
             }
         }
     }
