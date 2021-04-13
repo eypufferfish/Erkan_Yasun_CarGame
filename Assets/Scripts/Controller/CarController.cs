@@ -69,18 +69,17 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void TurnRight()
         {
-            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed * 90, Space.World);
+            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed)* 45, Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * Time.deltaTime * carPathPair.Car.Speed * 90, Space.World);
+            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed)* 45, Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
         {
             currentGameStatus = aEvent;
-            Debug.Log(gameObject.name + " Handle Game Status Event:" + aEvent);
             switch (aEvent)
             {
                 case StartLevel _:
@@ -122,7 +121,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             if (!(currentGameStatus == null || currentGameStatus is FinishPart || currentGameStatus is FinishLevel))
             {
                 frameOffset++;
-                transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
+                transform.Translate(carPathPair.Car.Speed * Time.deltaTime, 0, 0);
 
                 if (isReplayMode)
                 {

@@ -9,12 +9,12 @@ namespace Mobge.CarGame.ErkanYasun.Model
         private HealthInfo healthInfo;
 
         [SerializeField]
-        private int speed;
+        private float speed;
 
         [SerializeField]
         private Sprite sprite;
 
-        public int Speed => speed;
+        public float Speed => speed;
         public Sprite Sprite => sprite;
     }
 }

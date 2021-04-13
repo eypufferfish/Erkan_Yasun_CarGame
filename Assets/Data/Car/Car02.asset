@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePoints: 100
   healthInfo: {fileID: 11400000, guid: 6f73032aa9ec260438c7950554abf229, type: 2}
-  speed: 5
+  speed: 2
   sprite: {fileID: 21300000, guid: 040b06c786c96e14c9f3e73cdd46855b, type: 3}

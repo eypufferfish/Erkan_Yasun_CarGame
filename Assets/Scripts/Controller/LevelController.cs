@@ -138,7 +138,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         public void HandleEvent(GameStatusEvent aEvent)
         {
             currentGameStatus = aEvent;
-            Debug.Log("Level Controller Handle Game Status Event:" + aEvent);
             switch (aEvent)
             {
                 case FinishPart _:
