@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public class GameStatusDispatcher : MonoBehaviour, IEventDispatcher<GameStatusEvent>
+    public class GameStatusDispatcher : ScriptableObject, IEventDispatcher<GameStatusEvent>
     {
         [SerializeField]
         private List<IEventListener<GameStatusEvent>> listeners = new List<IEventListener<GameStatusEvent>>();
@@ -19,7 +19,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             listeners.Add(aListener);
         }
 
-        void IEventDispatcher<GameStatusEvent>.DispatchEvent(GameStatusEvent aEvent)
+        public void DispatchEvent(GameStatusEvent aEvent)
         {
             foreach (IEventListener<GameStatusEvent> listener in listeners)
             {

@@ -6,15 +6,16 @@ using UnityEngine;
 
 namespace Mobge.CarGame.ErkanYasun.Controller
 {
-    public class CarController : MonoBehaviour, IEventListener<UserInputEvent>, IEventListener<GameStatusEvent>
+    public class CarController : MonoBehaviour, ICarController
     {
-
-        private int lastResetFrameCount = 0;
+        private const string FINISH_TAG = "Finish";
+        private const string CAR_TAG = "Car";
+        private const string OBSTACLE_TAG = "Obstacle";
+        private int frameOffset = 0;
         [SerializeField]
         private CarPathPair carPathPair;
         [SerializeField]
-        private bool isActiveCar;
-
+        private bool isReplayMode = false;
 
         public void SetCarPathPair(CarPathPair aCarPathPair)
         {
@@ -24,19 +25,29 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public void HandleEvent(UserInputEvent aEvent)
         {
-            if (aEvent is TurnLeft)
+            switch (aEvent)
             {
-                TurnLeft();
-            }
-            else if (aEvent is TurnRight)
-            {
-                TurnRight();
+                case TurnLeft turnLeft:
+                    TurnLeft();
+                    break;
+                case TurnRight turnRight:
+                    TurnRight();
+                    break;
+                default:
+                    break;
+                case null:
+                    throw new System.ArgumentNullException(nameof(aEvent));
             }
 
-            if (isActiveCar)
+            if (isReplayMode)
             {
-                carPathPair.Path.UserInputPerFrames.Add(lastResetFrameCount, aEvent);
+                RecordUserInput(aEvent);
             }
+        }
+
+        private void RecordUserInput(UserInputEvent aEvent)
+        {
+            carPathPair.Path.UserInputPerFrames.Add(frameOffset, aEvent);
         }
 
         private void TurnRight()
@@ -53,16 +64,54 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         {
             if (aEvent is Reset)
             {
-                lastResetFrameCount = 0;
+                frameOffset = 0;
                 carPathPair.Path.UserInputPerFrames.Clear();
             }
         }
 
         private void Update()
         {
+            frameOffset++;
             transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
+
+            if (isReplayMode)
+            {
+                carPathPair.Path.UserInputPerFrames.TryGetValue(frameOffset, out UserInputEvent userInputEvent);
+                if (userInputEvent != null)
+                {
+                    HandleEvent(userInputEvent);
+                }
+            }
         }
 
+        public void SetReplayMode(bool aReplayMode)
+        {
+            isReplayMode = aReplayMode;
+        }
 
+        public bool IsReplayMode()
+        {
+            return isReplayMode;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+
+            if (!isReplayMode)
+            {
+
+                Debug.Log("OnTriggerEnter2D Tag:" + other.gameObject.tag);
+                if (other.gameObject.tag == FINISH_TAG)
+                {
+
+                }
+                else if (other.gameObject.tag == CAR_TAG || other.gameObject.tag == OBSTACLE_TAG)
+                {
+
+                }
+
+            }
+
+        }
     }
 }
