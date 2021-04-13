@@ -141,6 +141,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             switch (aEvent)
             {
                 case FinishPart _:
+                    currentActiveCarController.SetReplayMode(true);
                     StartNextPart();
                     break;
 

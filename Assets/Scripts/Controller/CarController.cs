@@ -11,6 +11,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private const string FinishTag = "Finish";
         private const string CarTag = "Car";
         private const string ObstacleTag = "Obstacle";
+        private const int RotationCoefficient = 45;
         private int frameOffset;
 
         [SerializeField]
@@ -69,12 +70,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void TurnRight()
         {
-            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed)* 45, Space.World);
+            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed)* RotationCoefficient, Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed)* 45, Space.World);
+            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed)* RotationCoefficient, Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
@@ -87,19 +88,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
                     carPathPair.Path.UserInputPerFrames.Clear();
-
                     break;
-
                 case StartNextPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
                     transform.rotation = Quaternion.Euler(0f, 0f, 90);
-                    if (!isReplayMode)
-                    {
-                        isReplayMode = true;
-                    }
                     break;
-
                 case ResetPart _:
                     frameOffset = 0;
                     transform.position = carPathPair.Path.Entrance;
@@ -131,6 +125,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                         Turn(userInputEvent);
                     }
                 }
+              
             }
         }
 
