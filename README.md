@@ -9,9 +9,9 @@ https://learn.unity.com/tutorial/introduction-to-scriptable-objects#5cf187b7edbc
 
 https://unity.com/how-to/architect-game-code-scriptable-objects
 
-Unite Austin 2017 - Game Architecture with Scriptable Objects
+https://www.youtube.com/watch?v=raQ3iHhE_Kk&ab_channel=Unity (Unite Austin 2017 - Game Architecture with Scriptable Objects)
 
-Unite 2016 - Overthrowing the MonoBehaviour Tyranny in a Glorious Scriptable Object Revolution
+https://www.youtube.com/watch?v=6vmRwLYWNRo&ab_channel=Unity (Unite 2016 - Overthrowing the MonoBehaviour Tyranny in a Glorious Scriptable Object Revolution)
 
 https://www.raywenderlich.com/7728186-creating-a-replay-system-in-unity
 
