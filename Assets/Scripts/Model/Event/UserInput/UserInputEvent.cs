@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Mobge.CarGame.ErkanYasun.Model.Event.UserInput
+﻿namespace Mobge.CarGame.ErkanYasun.Model.Event.UserInput
 {
     public class UserInputEvent : BaseEvent
     {
