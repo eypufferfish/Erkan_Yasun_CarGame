@@ -34,6 +34,17 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         public void HandleEvent(UserInputEvent aEvent)
         {
             Debug.Log("Handle User Event:" + aEvent);
+
+            if (!isReplayMode)
+            {
+                Turn(aEvent);
+                RecordUserInput(aEvent);
+            }
+
+        }
+
+        private void Turn(UserInputEvent aEvent)
+        {
             switch (aEvent)
             {
                 case TurnLeft turnLeft:
@@ -46,11 +57,6 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     break;
                 case null:
                     throw new System.ArgumentNullException(nameof(aEvent));
-            }
-
-            if (isReplayMode)
-            {
-                RecordUserInput(aEvent);
             }
         }
 
@@ -110,7 +116,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             frameOffset++;
             transform.Translate(carPathPair.Car.Speed * Time.deltaTime * 0.4f, 0, 0);
@@ -120,7 +126,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                 carPathPair.Path.UserInputPerFrames.TryGetValue(frameOffset, out UserInputEvent userInputEvent);
                 if (userInputEvent != null)
                 {
-                    HandleEvent(userInputEvent);
+                    Turn(userInputEvent);
                 }
             }
         }
