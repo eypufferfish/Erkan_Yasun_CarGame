@@ -12,7 +12,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private const string FinishTag = "Finish";
         private const string CarTag = "Car";
         private const string ObstacleTag = "Obstacle";
-        private const int RotationCoefficient = 45;
+        private const int RotationCoefficient = 30;
         private int frameOffset;
 
         [SerializeField]
@@ -27,6 +27,14 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         [SerializeField]
         private IGameStatusController gameStatusController;
+
+        public UnityEngine.Camera cam;
+
+        void Start()
+        {
+            cam = Camera.main;
+
+        }
 
         public void SetCarPathPair(CarPathPair aCarPathPair)
         {
@@ -73,12 +81,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         private void TurnRight()
         {
-            transform.Rotate(new Vector3(0, 0, -carPathPair.Car.Speed) * RotationCoefficient, Space.World);
+            transform.Rotate(new Vector3(0, 0, -RotationCoefficient), Space.World);
         }
 
         private void TurnLeft()
         {
-            transform.Rotate(new Vector3(0, 0, carPathPair.Car.Speed) * RotationCoefficient, Space.World);
+            transform.Rotate(new Vector3(0, 0, RotationCoefficient), Space.World);
         }
 
         public void HandleEvent(GameStatusEvent aEvent)
@@ -121,7 +129,13 @@ namespace Mobge.CarGame.ErkanYasun.Controller
             if (isPathCompleted || currentGameStatus == null || currentGameStatus is FinishPart ||
                 currentGameStatus is FinishLevel) return;
             frameOffset++;
+
             transform.Translate(carPathPair.Car.Speed * Time.deltaTime, 0, 0);
+            if (CheckIfTransformOutOfScreenBorder())
+            {
+                gameStatusController.ResetPart();
+                return;
+            }
 
             if (isReplayMode)
             {
@@ -140,6 +154,12 @@ namespace Mobge.CarGame.ErkanYasun.Controller
                     }
                 }
             }
+        }
+
+        private bool CheckIfTransformOutOfScreenBorder()
+        {
+            Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
+            return viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1 && viewPos.z < 0;
         }
 
         public void SetReplayMode(bool aReplayMode)
