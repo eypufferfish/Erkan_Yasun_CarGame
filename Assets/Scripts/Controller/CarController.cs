@@ -30,10 +30,9 @@ namespace Mobge.CarGame.ErkanYasun.Controller
 
         public UnityEngine.Camera cam;
 
-        void Start()
+        private void Start()
         {
             cam = Camera.main;
-
         }
 
         public void SetCarPathPair(CarPathPair aCarPathPair)
@@ -159,7 +158,7 @@ namespace Mobge.CarGame.ErkanYasun.Controller
         private bool CheckIfTransformOutOfScreenBorder()
         {
             Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
-            return viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1 && viewPos.z < 0;
+            return viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1 || viewPos.z < 0;
         }
 
         public void SetReplayMode(bool aReplayMode)
