@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4394447e999a7143b767184558f5bfd, type: 3}
-  m_Name: Path03
+  m_Script: {fileID: 11500000, guid: 83a229e5cb8fb3c47b2921c696ea98b1, type: 3}
+  m_Name: Car04Path05
   m_EditorClassIdentifier: 
-  entrance: {x: 0, y: -4}
-  target: {x: 8, y: 4}
+  car: {fileID: 11400000, guid: 100b953ffee19854da0bd2c5f4c50e14, type: 2}
+  path: {fileID: 11400000, guid: f106709eeea8a8d4f8c04a7011ab8289, type: 2}

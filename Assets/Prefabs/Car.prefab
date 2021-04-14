@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPathPair: {fileID: 0}
   isReplayMode: 0
+  cam: {fileID: 0}
 --- !u!50 &-5144257035253580609
 Rigidbody2D:
   serializedVersion: 4

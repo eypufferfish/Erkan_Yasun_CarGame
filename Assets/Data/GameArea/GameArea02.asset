@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b8aa16772b13d448a750901b6f3a36d, type: 3}
-  m_Name: GameArea01
+  m_Name: GameArea02
   m_EditorClassIdentifier: 
   obstacles:
     m_keys:
@@ -20,6 +20,7 @@ MonoBehaviour:
     - {x: -4, y: 3.5}
     - {x: -4, y: -3.5}
     - {x: 2.5, y: -3.5}
+    - {x: -8, y: 0}
     m_values:
     - {fileID: 11400000, guid: b083dcb7dec994844940d978ddc2e07a, type: 2}
     - {fileID: 11400000, guid: 867a2bcb050dafa4699f9f041da89b27, type: 2}
@@ -27,12 +28,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
     - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
     - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
+    - {fileID: 11400000, guid: 867a2bcb050dafa4699f9f041da89b27, type: 2}
   carPathPairs:
+  - {fileID: 11400000, guid: 62ff821ade7c88d47b6126e0f72035ef, type: 2}
+  - {fileID: 11400000, guid: 945303af48b888543b20dfed3f88f045, type: 2}
+  - {fileID: 11400000, guid: f70da5dda9a417a478d68a4406fa7dcd, type: 2}
+  - {fileID: 11400000, guid: 7adce213783b60545a7c1da229892b49, type: 2}
   - {fileID: 11400000, guid: c617674dcabf71e40aa0a16d16c55440, type: 2}
   - {fileID: 11400000, guid: 4a7ec3ec308bd5843ad9a792fbf797ba, type: 2}
   - {fileID: 11400000, guid: 050cbae308673024e8c75a2846883c8c, type: 2}
   - {fileID: 11400000, guid: 0d1be8461d8078b458fc81218f49e82b, type: 2}
-  - {fileID: 11400000, guid: 945303af48b888543b20dfed3f88f045, type: 2}
-  - {fileID: 11400000, guid: f70da5dda9a417a478d68a4406fa7dcd, type: 2}
-  - {fileID: 11400000, guid: 7adce213783b60545a7c1da229892b49, type: 2}
-  - {fileID: 11400000, guid: 62ff821ade7c88d47b6126e0f72035ef, type: 2}

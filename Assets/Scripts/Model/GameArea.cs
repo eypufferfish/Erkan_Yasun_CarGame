@@ -8,7 +8,7 @@ namespace Mobge.CarGame.ErkanYasun.Model
     {
         [SerializeField]
         [Header("x Ekseni [-8..8], y Ekseni [-4..4]")]
-        private readonly SerializableDictionary<Vector2, Obstacle> obstacles = new SerializableDictionary<Vector2, Obstacle>();
+        private SerializableDictionary<Vector2, Obstacle> obstacles = new SerializableDictionary<Vector2, Obstacle>();
 
         [SerializeField]
         private List<CarPathPair> carPathPairs;
