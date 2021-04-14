@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
     m_keys:
-    - {x: -6, y: 1}
-    - {x: -3, y: 0}
-    - {x: 2, y: 2}
-    - {x: 4, y: 3}
+    - {x: 8, y: 0}
+    - {x: 0, y: 0}
+    - {x: 3, y: 3.5}
+    - {x: -4, y: 3.5}
+    - {x: -4, y: -3.5}
+    - {x: 2.5, y: -3.5}
     m_values:
-    - {fileID: 11400000, guid: a65ae37ed75f89e4f8d55024a79fb840, type: 2}
-    - {fileID: 11400000, guid: 9c696d8dec404ca468335e8f52804450, type: 2}
+    - {fileID: 11400000, guid: b083dcb7dec994844940d978ddc2e07a, type: 2}
+    - {fileID: 11400000, guid: 867a2bcb050dafa4699f9f041da89b27, type: 2}
+    - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
+    - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
     - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
     - {fileID: 11400000, guid: 33319a842772e09449ce6770d1608ff0, type: 2}
   carPathPairs:
